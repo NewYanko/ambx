@@ -1,6 +1,6 @@
 {
   "name": "ambx",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Node.JS wrapper for AMBX's and Philips' gaming lights",
   "main": "dist/main.js",
   "type": "module",
@@ -11,6 +11,13 @@
   },
   "author": "yanko",
   "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NewYanko/amBX.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NewYanko/amBX/issues"
+  },
   "dependencies": {
     "usb": "^2.9.0"
   },
