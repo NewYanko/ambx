@@ -1,29 +1,45 @@
 import { Device, Endpoint } from 'usb';
 import { Command, Commands, Light, Lights, USB } from '../Util.js';
+import { EventEmitter } from 'node:events';
 
 const ArrayLights = Object.keys(Lights).map(l => Lights[l]);
 const RealArrayLights = ArrayLights.filter(l => l != Lights.All);
 
-export default class AMBX {
+export default class AMBX extends EventEmitter {
   USB: Device;
   Endpoint: Endpoint;
+  _wasCloseEmitted = false;
   /**
    * USB Connection and Methods
    * @param {Device} USBInstance
    */
   constructor(USBInstance: Device) {
+    super();
     this.USB = USBInstance;
     this.USB.open();
     const inter = this.USB.interface(0);
-    inter.claim();
+    try {
+      inter.claim();
+    } catch (e) {
+      throw new Error('Unable to claim interface - is device busy?');
+    }
     const end = inter.endpoint(USB.Endpoints.OUT);
     if (!end) throw new Error('Unable to get USB endpoint');
     this.Endpoint = end;
   }
 
-  async Write(Light: Light, Data: [Command, ...any]): Promise<void> {
+  async Write(Light: Light, Data: [Command, ...any]): Promise<boolean> {
     return new Promise(res => {
-      this.Endpoint.makeTransfer(0, () => res()).submit(Buffer.from([Commands.Header, Light, ...Data]));
+      try {
+        this.Endpoint.makeTransfer(0, () => res(true)).submit(Buffer.from([Commands.Header, Light, ...Data]));
+      } catch (e) {
+        if (!this._wasCloseEmitted) {
+          this.emit('close');
+          this._wasCloseEmitted = true;
+        }
+        res(false);
+        console.log('amBX Error Transferring (probably closed pipe)', e);
+      }
     });
   }
 
@@ -39,6 +55,10 @@ export default class AMBX {
   }
 
   Close() {
+    if (!this._wasCloseEmitted) {
+      this.emit('close');
+      this._wasCloseEmitted = true;
+    }
     return this.USB.close();
   }
 }

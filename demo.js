@@ -1,22 +1,4 @@
-import { CreateDevice, Lights } from './src/main.js';
-
-async () => {
-  var Device = await CreateDevice();
-  var values = [0, 10, 20, 30, 40];
-  const step = 10;
-
-  const loop = () => {
-    values = values.map(value => (value > 255 ? 0 : value + step));
-
-    Device.SetColor(Lights.Left, values[0], 0, 0);
-    Device.SetColor(Lights.WallLeft, values[1], 0, 0);
-    Device.SetColor(Lights.WallCenter, values[2], 0, 0);
-    Device.SetColor(Lights.WallRight, values[3], 0, 0);
-    Device.SetColor(Lights.Right, values[4], 0, 0);
-  };
-  setInterval(loop, 50);
-  loop();
-};
+import { CreateDevice, Lights } from './dist/main.js';
 
 (async () => {
   var Device = await CreateDevice();
@@ -24,6 +6,8 @@ async () => {
   const time = 50;
   const offsets = [5, 10];
   const offsetsb = [4, 8];
+
+  var EndFlag = false;
 
   const loop = async () => {
     for (var x = 0; x < 255; x += step) {
@@ -47,9 +31,12 @@ async () => {
       await delay(time);
     }
   };
-  while (true) {
-    await loop();
-  }
+
+  Device.on('close', () => {
+    console.log('amBX disconnected!');
+    EndFlag = true;
+  });
+  while (!EndFlag) await loop();
 })();
 
 const delay = time => {
