@@ -9,7 +9,7 @@ Node.JS wrapper for AMBX's and Philips' gaming lights.
 Install using [NPM](https://www.npmjs.com/package/ambx)
 
 ```console
-npm i amBX
+npm i ambx
 ```
 
 This package uses [node-usb](https://github.com/node-usb/node-usb), make sure to have libusb installed.

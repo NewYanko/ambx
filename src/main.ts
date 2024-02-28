@@ -1,5 +1,5 @@
 import { findByIds } from 'usb';
-import { Lights, USB } from './Util.js';
+import { USB } from './Util.js';
 import AMBX from './classes/AMBX.js';
 
 async function CreateDevice(vendorId = USB.VID, productId = USB.PID) {

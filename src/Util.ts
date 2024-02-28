@@ -7,11 +7,15 @@ export const USB = {
     PNP: 0x83,
   },
 };
-export const Commands = {
+
+export type Command = number;
+export const Commands: Record<string, Command> = {
   Header: 0xa1,
   SetColor: 0x03,
 };
-export const Lights = {
+
+export type Light = number;
+export const Lights: Record<string, Light> = {
   Left: 0x0b,
   Right: 0x1b,
   WallLeft: 0x2b,

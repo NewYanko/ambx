@@ -1,15 +1,21 @@
 {
   "name": "ambx",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Node.JS wrapper for AMBX's and Philips' gaming lights",
-  "main": "src/main.js",
+  "main": "dist/main.js",
   "type": "module",
   "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "author": "yanko",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "usb": "^2.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.21",
+    "typescript": "^5.3.3"
   }
 }
