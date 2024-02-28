@@ -15,7 +15,8 @@ export const Commands: Record<string, Command> = {
 };
 
 export type Light = number;
-export const Lights: Record<string, Light> = {
+export type LightsName = 'Left' | 'Right' | 'WallLeft' | 'WallCenter' | 'WallRight' | 'All';
+export const Lights: Record<LightsName, Light> = {
   Left: 0x0b,
   Right: 0x1b,
   WallLeft: 0x2b,

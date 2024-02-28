@@ -1,8 +1,8 @@
 import { Device, Endpoint } from 'usb';
-import { Command, Commands, Light, Lights, USB } from '../Util.js';
+import { Command, Commands, Light, Lights, LightsName, USB } from '../Util.js';
 import { EventEmitter } from 'node:events';
 
-const ArrayLights = Object.keys(Lights).map(l => Lights[l]);
+const ArrayLights = Object.keys(Lights).map(l => Lights[l as LightsName]);
 const RealArrayLights = ArrayLights.filter(l => l != Lights.All);
 
 export default class AMBX extends EventEmitter {
