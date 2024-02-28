@@ -1,6 +1,6 @@
 {
   "name": "ambx",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Node.JS wrapper for AMBX's and Philips' gaming lights",
   "main": "dist/main.js",
   "type": "module",
@@ -17,5 +17,8 @@
   "devDependencies": {
     "@types/node": "^20.11.21",
     "typescript": "^5.3.3"
-  }
+  },
+  "files": [
+    "/dist"
+  ]
 }
