@@ -10,4 +10,5 @@ export async function CreateDevice(vendorId = USB.VID, productId = USB.PID) {
   return new AMBX(device);
 }
 
+export { AMBX };
 export * from './Util.js';
