@@ -1,6 +1,6 @@
 {
   "name": "ambx",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "Node.JS wrapper for AMBX's and Philips' gaming lights",
   "main": "dist/main.js",
   "type": "module",

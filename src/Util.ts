@@ -15,12 +15,13 @@ export const Commands: Record<string, Command> = {
 };
 
 export type Light = number;
-export type LightsName = 'Left' | 'Right' | 'WallLeft' | 'WallCenter' | 'WallRight' | 'All';
+export type LightsName = 'Left' | 'Right' | 'WallLeft' | 'WallCenter' | 'WallRight';
 export const Lights: Record<LightsName, Light> = {
   Left: 0x0b,
   Right: 0x1b,
   WallLeft: 0x2b,
   WallCenter: 0x3b,
   WallRight: 0x4b,
-  All: 0xff,
 };
+
+export const AllLights: Light = 0xff;

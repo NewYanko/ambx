@@ -1,9 +1,9 @@
 import { Device, Endpoint } from 'usb';
-import { Command, Commands, Light, Lights, LightsName, USB } from '../Util.js';
+import { AllLights, Command, Commands, Light, Lights, LightsName, USB } from '../Util.js';
 import { EventEmitter } from 'node:events';
 
 const ArrayLights = Object.keys(Lights).map(l => Lights[l as LightsName]);
-const RealArrayLights = ArrayLights.filter(l => l != Lights.All);
+// const RealArrayLights = ArrayLights.filter(l => l != Lights.All);
 
 export default class AMBX extends EventEmitter {
   USB: Device;
@@ -43,9 +43,9 @@ export default class AMBX extends EventEmitter {
     });
   }
 
-  async SetColor(SelLights: Light | Light[] = Lights.All, Red: number, Green: number, Blue: number) {
+  async SetColor(SelLights: Light | Light[] = AllLights, Red: number, Green: number, Blue: number) {
     if (!Array.isArray(SelLights))
-      if (ArrayLights.includes(SelLights)) SelLights = SelLights == Lights.All ? RealArrayLights : [SelLights];
+      if (ArrayLights.includes(SelLights) || SelLights == AllLights) SelLights = [SelLights];
       else throw new Error('Invalid light');
 
     for (const Light of SelLights) {
